@@ -122,19 +122,19 @@ exports.searchPickup = async (req, res) => {
         searchConditions.country = { [Op.like]: `%${country}%` };
     }
     try {
-        const billling = await VendorPickup.findAll({
+        const pickup = await VendorPickup.findAll({
             where: searchConditions,
             include: [{ model: VendorCode }],
             order: [['createdAt', 'ASC']]
         });
 
-        if (billling.length === 0) {
-            return res.status(404).json({ message: "No Billing found." });
+        if (pickup.length === 0) {
+            return res.status(404).json({ message: "No pickup found." });
         }
 
-        res.status(200).json(billling);
+        res.status(200).json(pickup);
     } catch (error) {
-        console.error("Error searching billling:", error);
-        res.status(500).json({ message: "An error occurred while searching billling." });
+        console.error("Error searching pickup:", error);
+        res.status(500).json({ message: "An error occurred while searching pickup." });
     }
 };
