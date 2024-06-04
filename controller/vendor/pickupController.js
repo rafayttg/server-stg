@@ -97,3 +97,44 @@ exports.updatePickUp = async (req, res) => {
         res.status(500).json({ message: 'Error updating pickup', error: error.message || error });
     }
 }
+
+
+exports.searchPickup = async (req, res) => {
+
+    const { pickup_location_name, email, phone, city, country } = req.query;
+
+  
+    // Build the search conditions dynamically based on the query parameters
+    let searchConditions = {};
+    if (pickup_location_name) {
+        searchConditions.pickup_location_name = { [Op.like]: `%${pickup_location_name}%` };
+    }
+    if (email) {
+        searchConditions.email = { [Op.like]: `%${email}%` };
+    }
+    if (phone) {
+        searchConditions.phone = { [Op.like]: `%${phone}%` };
+    }
+    if (city) {
+        searchConditions.city = { [Op.like]: `%${city}%` };
+    }
+    if (country) {
+        searchConditions.country = { [Op.like]: `%${country}%` };
+    }
+    try {
+        const billling = await VendorPickup.findAll({
+            where: searchConditions,
+            include: [{ model: VendorCode }],
+            order: [['createdAt', 'ASC']]
+        });
+
+        if (billling.length === 0) {
+            return res.status(404).json({ message: "No Billing found." });
+        }
+
+        res.status(200).json(billling);
+    } catch (error) {
+        console.error("Error searching billling:", error);
+        res.status(500).json({ message: "An error occurred while searching billling." });
+    }
+};

@@ -100,3 +100,44 @@ exports.updateBilling = async (req, res) => {
     }
 };
 
+
+
+exports.searchBilling = async (req, res) => {
+
+    const { billing_contact_name, email, phone, city, country } = req.query;
+
+  
+    // Build the search conditions dynamically based on the query parameters
+    let searchConditions = {};
+    if (billing_contact_name) {
+        searchConditions.billing_contact_name = { [Op.like]: `%${billing_contact_name}%` };
+    }
+    if (email) {
+        searchConditions.email = { [Op.like]: `%${email}%` };
+    }
+    if (phone) {
+        searchConditions.phone = { [Op.like]: `%${phone}%` };
+    }
+    if (city) {
+        searchConditions.city = { [Op.like]: `%${city}%` };
+    }
+    if (country) {
+        searchConditions.country = { [Op.like]: `%${country}%` };
+    }
+    try {
+        const billling = await VendorBilling.findAll({
+            where: searchConditions,
+            include: [{ model: VendorCode }],
+            order: [['createdAt', 'ASC']]
+        });
+
+        if (billling.length === 0) {
+            return res.status(404).json({ message: "No Billing found." });
+        }
+
+        res.status(200).json(billling);
+    } catch (error) {
+        console.error("Error searching billling:", error);
+        res.status(500).json({ message: "An error occurred while searching billling." });
+    }
+};

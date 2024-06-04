@@ -11,14 +11,11 @@ const cors = require('cors')
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors({
-    origin: '*'
-  }));
-
+app.use(cors())
 
 app.use('/' , routes)
 
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
-
-
+app.listen(8050, () => {
+    console.log('Server is conneced')
+}) 

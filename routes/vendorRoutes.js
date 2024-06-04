@@ -17,13 +17,14 @@ vendor.get('/billinginfo', authenticateToken, billingController.getBillingInfo);
 vendor.post('/billingcreate', authenticateToken, billingController.createBillingInfo);
 vendor.delete('/billingdelete/:id', authenticateToken, billingController.deleteBilling);
 vendor.put('/billingupdate/:id', authenticateToken, billingController.updateBilling);
-// vendor.get('/searchVendor', authenticateToken, vendorController.searchVendor)
+vendor.get('/searchbilling', authenticateToken, billingController.searchBilling)
 
 
 vendor.get('/pickupinfo', authenticateToken, pickupController.getPickUpInfo);
 vendor.post('/pickupcreate', authenticateToken, pickupController.createPickUp);
 vendor.delete('/pickupdelete/:id', authenticateToken, pickupController.deletePickUp);
 vendor.put('/updatepickup/:id', authenticateToken, pickupController.updatePickUp);
+vendor.get('/searchpickup', authenticateToken, pickupController.searchPickup)
 
 
 
