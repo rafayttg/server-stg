@@ -2,8 +2,8 @@ const express = require('express');
 const app = express()
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv')
-const dbcon = require('../dbconfig/db')
-const routes = require('../routes/index')
+const dbcon = require('./dbconfig/db')
+const routes = require('./routes/index')
 const cors = require('cors')
 
 
