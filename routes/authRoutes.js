@@ -7,6 +7,7 @@ const userLogin = require('../controller/login/logInController')
 
 auth.post('/login', userLogin.adminLogIn);
 auth.post('/register', userRegister.adminRegister);
+auth.get('/getall', userRegister.fetchAllAdmins);
 // vendor.get('/:id', userController.getUserById);
 // vendor.put('/:id', userController.updateUser);
 // vendor.delete('/:id', userController.deleteUser);

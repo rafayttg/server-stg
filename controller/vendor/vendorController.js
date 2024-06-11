@@ -22,11 +22,13 @@ exports.getVendorInfo = async (req, res) => {
 
 
 exports.createVendorInfo = async (req, res) => {
+   
     const vendorData = {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        address: req.body.address,
+        address_1: req.body.address_1,
+        address_2: req.body.address_2,
         city: req.body.city,
         country: req.body.country,
         region: req.body.region,
@@ -34,6 +36,7 @@ exports.createVendorInfo = async (req, res) => {
         postal_code: req.body.zipPostal
     };
 
+    console.log (vendorData)
 
     const vendorCodeData = {
         code: req.body.code
@@ -128,7 +131,6 @@ exports.updateVendor = async (req, res) => {
             include: [VendorCode]
         });
 
-        console.log(updatedVendor)
         res.status(200).json({ response: updatedVendor });
     } catch (error) {
         console.error('Error updating vendor:', error); // Log the error to the console

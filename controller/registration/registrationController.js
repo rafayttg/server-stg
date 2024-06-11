@@ -35,3 +35,14 @@ exports.adminRegister = async (req, res) => {
 }
 
 
+exports.fetchAllAdmins = async (req, res) => {
+    try {
+        const response = await Admin.findAll({
+            attributes: { exclude: ['password'] }
+        });
+
+        res.send(response);
+    } catch (error) {
+        res.status(500).send({ error: 'An error occurred while fetching admins.' });
+    }
+};

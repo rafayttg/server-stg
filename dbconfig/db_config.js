@@ -26,7 +26,8 @@ const Vendor = sequelize.define('vendor', {
   },
   email: DataTypes.STRING(255),
   phone: DataTypes.STRING(20),
-  address: DataTypes.STRING(255),
+  address_1: DataTypes.STRING(255),
+  address_2: DataTypes.STRING(255),
   city: DataTypes.STRING(100),
   state: DataTypes.STRING(100),
   country: DataTypes.STRING(100),
@@ -133,7 +134,7 @@ Admin.sync({ force: false }).then(() => {
 });
 
 
-VendorPickup.sync({ force: false }).then(() => {
+Vendor.sync({ force: false }).then(() => {
   console.log('vendor table created successfully');
 }).catch(err => {
   console.error('Error creating AdminRole table:', err);
